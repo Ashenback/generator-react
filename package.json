@@ -1,0 +1,25 @@
+{
+  "name": "generator-react",
+  "version": "1.0.0",
+  "description": "Generate skeleton for front-end component or state.",
+  "files": [
+    "generators/app",
+    "generators/component",
+    "generators/state"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hjalmar Sköldefors",
+  "contributors": ["Joakim Askenbäck"],
+  "license": "ISC",
+  "keywords": [
+    "yeoman-generator",
+    "ECMAScript 6"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^1.1.0",
+    "yosay": "^1.1.0"
+  }
+}

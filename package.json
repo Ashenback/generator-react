@@ -12,13 +12,16 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Hjalmar Sköldefors",
-  "contributors": ["Joakim Askenbäck"],
+  "contributors": [
+    "Joakim Askenbäck"
+  ],
   "license": "ISC",
   "keywords": [
     "yeoman-generator",
     "ECMAScript 6"
   ],
   "dependencies": {
+    "lodash": "^4.17.4",
     "yeoman-generator": "^1.1.0",
     "yosay": "^1.1.0"
   }

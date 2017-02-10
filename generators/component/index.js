@@ -1,10 +1,15 @@
-const yeoman = require('yeoman-generator').Base;
+const path = require('path');
+const Generator = require('yeoman-generator');
 
-const component = yeoman.extend({
-	prompting: function () {
-		const done = this.async();
+class Component extends Generator {
+	constructor(args, opts) {
+		super(args, opts);
+		this.argument('ComponentName', { type: String, required: false });
+		this.argument('ComponentType', { type: String, required: false });
+	}
 
-		const prompts = [
+	prompting() {
+		const questions = [
 			{
 				when: () => {
 					return !(this.options && this.options.ComponentName);
@@ -14,36 +19,69 @@ const component = yeoman.extend({
 				message: 'What will the name of the component be?',
 			},
 			{
+				when: () => {
+					return !(this.options && this.options.ComponentType);
+				},
+				type: 'list',
 				choices: [
-					'Component',
-					'Pure Component',
-					'Static Funtion'
+					{
+						name: 'Component',
+						value: 'component'
+					},
+					{
+						name: 'Pure Component',
+						value: 'pure'
+					},
+					{
+						name: 'Static Funtion',
+						value: 'static'
+					}
 				],
 				name: 'ComponentType',
 				message: 'What type of Component will it be?'
 			}
 		];
 
-		this.prompt(prompts, (props) => {
-			if (props.ComponentName) {
-				this.ComponentName = props.ComponentName;
-				this.componentPath = './';
-			} else {
-				this.ComponentName = this.options.ComponentName;
-				this.componentPath = this.options.ComponentName + '/';
-			}
-			done();
+		return this.prompt(questions).then(answers => {
+			this.templateOptions = Object.assign({}, this.options, answers);
 		});
-	},
+	}
 
-	writing: function () {
-		const done = this.async();
-		this.template('component.css', this.componentPath + this.ComponentName + '.css', this);
-		this.template('component.js', this.componentPath + this.ComponentName + '.js', this);
-		this.template('index.js', this.componentPath + 'index.js', this);
-		done();
-	},
+	writing() {
+		const {
+			ComponentName,
+			ComponentType,
+		} = this.templateOptions;
+		const outRoot = path.join('.', ComponentName);
+		this.fs.copyTpl(
+			this.templatePath('component.css'),
+			path.join(outRoot, ComponentName + '.css'),
+			this.templateOptions
+		);
+		let templateName;
+		switch (ComponentType) {
+		case 'pure':
+			templateName = 'pureComponent.js';
+			break;
+		case 'static':
+			templateName = 'staticFunction.js';
+			break;
+		case 'component':
+			templateName = 'component.js';
+			break;
+		}
+		this.fs.copyTpl(
+			this.templatePath(templateName),
+			path.join(outRoot, ComponentName + '.js'),
+			this.templateOptions
+		);
+		this.fs.copyTpl(
+			this.templatePath('index.js'),
+			path.join(outRoot, 'index.js'),
+			this.templateOptions
+		);
+	}
 
-});
+}
 
-module.exports = component;
+module.exports = Component;

@@ -2,15 +2,15 @@ import React from 'react';
 import styles from './<%= ComponentName %>.css';
 
 const <%= ComponentName %> = props => {
+	const {
+		children,
+	} = props;
 	return (
-		const {
-			children,
-		} = props;
 		<div>
 			{children}
 		</div>
 	);
-}
+};
 
 <%= ComponentName %>.propTypes = {
 	children: React.PropTypes.node,

@@ -1,39 +1,53 @@
-const yeoman = require('yeoman-generator');
+const Generator = require('yeoman-generator');
 const yosay = require('yosay');
 
-const ComponentGenerator = yeoman.Base.extend({
+class App extends Generator {
+	constructor(args, opts) {
+		super(args, opts);
+		this.argument('type', { type: String, required: false });
+	}
 
-	constructor: () => {
-		yeoman.Base.apply(this, arguments);
-		this.argument('ComponentName', { type: String, required: false });
-	},
+	runSubGenerator(args) {
+		if (args) {
+			switch(args.type) {
+			case 'Component':
+				this.composeWith(require.resolve('../component'));
+				break;
+			case 'State':
+				this.composeWith(require.resolve('../state'));
+				break;
+			case 'Utility':
+				this.composeWith(require.resolve('../utility'));
+				break;
+			}
+		}
+	};
 
-	prompting: () => {
-		const done = this.async();
-
+	prompting() {
+		const {
+			type
+		} = this.options;
 		this.log(yosay(
 			'Welcome to the Epiceros frontend component generator!'
 		));
-
-		if (this.ComponentName) {
-			this.composeWith("component:component", { options: { 'ComponentName': this.ComponentName } });
-			done();
+		if (type) {
+			this.runSubGenerator({ type });
 		} else {
-			const prompts = [
+			const questions = [
 				{
-					type: 'input',
-					name: 'ComponentName',
-					message: 'What will the name of the component be?',
+					type: 'list',
+					name: 'type',
+					message: 'What do you want to generate?',
+					choices: [
+						'Component',
+						'State',
+						'Utility'
+					]
 				}
 			];
-
-			this.prompt(prompts, props => {
-				this.composeWith("component:component", { options: { 'ComponentName': props.ComponentName } });
-				done();
-			});
+			return this.prompt(questions).then(this.runSubGenerator.bind(this));
 		}
-
 	}
-});
+}
 
-module.exports = ComponentGenerator;
+module.exports = App;

@@ -1,4 +1,5 @@
 const path = require('path');
+const camelCase = require('lodash/camelCase');
 const Generator = require('yeoman-generator');
 
 class Component extends Generator {
@@ -28,16 +29,20 @@ class Component extends Generator {
 		const {
 			UtilName,
 		} = this.templateOptions;
-		const outRoot = path.join('.', UtilName);
+		const utilName = camelCase(UtilName);
+		const outRoot = path.join('.', utilName);
+		const options = {
+			UtilName: utilName
+		};
 		this.fs.copyTpl(
 			this.templatePath('index.js'),
 			path.join(outRoot, 'index.js'),
-			this.templateOptions
+			options
 		);
 		this.fs.copyTpl(
 			this.templatePath('util.js'),
-			path.join(outRoot, UtilName + '.js'),
-			this.templateOptions
+			path.join(outRoot, utilName + '.js'),
+			options
 		);
 	}
 

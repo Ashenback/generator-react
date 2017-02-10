@@ -1,11 +1,12 @@
 {
   "name": "generator-react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate skeleton for front-end component or state.",
   "files": [
     "generators/app",
     "generators/component",
-    "generators/state"
+    "generators/state",
+    "generators/utility"
   ],
   "main": "index.js",
   "scripts": {

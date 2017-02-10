@@ -7,7 +7,7 @@ class <%= ComponentName %> extends React.PureComponent {
 		children: React.PropTypes.node,
 	};
 
-	render () {
+	render() {
 		const {
 			children,
 		} = this.props;

@@ -1,10 +1,7 @@
 import React from 'react';
 import styles from './<%= ComponentName %>.css';
 
-const <%= ComponentName %> = props => {
-	const {
-		children,
-	} = props;
+const <%= ComponentName %> = ({ children }) => {
 	return (
 		<div>
 			{children}

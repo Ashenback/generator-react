@@ -1,6 +1,6 @@
 {
   "name": "generator-react",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Generate skeleton for front-end component or state.",
   "files": [
     "generators/app",

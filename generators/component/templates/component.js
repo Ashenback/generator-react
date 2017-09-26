@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './<%= ComponentName %>.css';
 
 class <%= ComponentName %> extends React.Component {
 
 	static propTypes = {
-		children: React.PropTypes.node,
+		children: PropTypes.node,
 	};
 
 	render() {

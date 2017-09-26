@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './<%= ComponentName %>.css';
 
 const <%= ComponentName %> = ({ children }) => {
@@ -10,7 +11,7 @@ const <%= ComponentName %> = ({ children }) => {
 };
 
 <%= ComponentName %>.propTypes = {
-	children: React.PropTypes.node,
+	children: PropTypes.node,
 };
 
 export default <%= ComponentName %>;

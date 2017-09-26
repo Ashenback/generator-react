@@ -35,8 +35,8 @@ class Component extends Generator {
 						value: 'pure'
 					},
 					{
-						name: 'Static Funtion',
-						value: 'static'
+						name: 'Stateless Funtion',
+						value: 'stateless'
 					}
 				],
 				name: 'ComponentType',
@@ -74,8 +74,8 @@ class Component extends Generator {
 		case 'pure':
 			templateName = 'pureComponent.js';
 			break;
-		case 'static':
-			templateName = 'staticFunction.js';
+		case 'stateless':
+			templateName = 'statelessFunction.js';
 			break;
 		case 'component':
 			templateName = 'component.js';
